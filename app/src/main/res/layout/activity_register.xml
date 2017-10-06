@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+
+    tools:context="br.bruno.facilitador.RegisterActivity">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textColor="@color/textColor"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/prompt_name"
+            android:textColor="@color/textColor"
+            android:textSize="18dp"
+            android:id="@+id/tx1"
+            android:layout_alignParentLeft="true"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tx1"
+            android:id="@+id/reg_name"
+            android:textColor="@color/textColor"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/prompt_lastname"
+            android:textColor="@color/textColor"
+            android:textSize="18dp"
+            android:layout_below="@+id/reg_name"
+            android:id="@+id/tx2"
+            android:layout_alignParentLeft="true"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tx2"
+            android:id="@+id/reg_lastname"
+            android:textColor="@color/textColor"
+            />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/prompt_email"
+            android:textColor="@color/textColor"
+            android:textSize="18dp"
+            android:layout_below="@+id/reg_lastname"
+            android:id="@+id/tx3"
+            android:layout_alignParentLeft="true"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tx3"
+            android:id="@+id/reg_email"
+            android:textColor="@color/textColor"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/prompt_password"
+            android:textColor="@color/textColor"
+            android:textSize="18dp"
+            android:layout_below="@+id/reg_email"
+            android:id="@+id/tx4"
+            android:layout_alignParentLeft="true"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tx4"
+            android:id="@+id/reg_password"
+            android:textColor="@color/textColor"
+            android:inputType="textPassword"
+            />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/prompt_password_confirmation"
+            android:textColor="@color/textColor"
+            android:textSize="18dp"
+            android:layout_below="@+id/reg_password"
+            android:id="@+id/tx5"
+            android:layout_alignParentLeft="true"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tx5"
+            android:id="@+id/reg_password_confirmation"
+            android:textColor="@color/textColor"
+            android:inputType="textPassword"
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/reg_bn_label"
+            style="?android:textAppearanceSmall"
+            android:textColor="@color/textColor"
+            android:id="@+id/reg_button"
+            android:layout_below="@+id/reg_password_confirmation"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/button_selecter"
+            android:textStyle="bold"
+
+            />
+    </RelativeLayout>
+    </ScrollView>
+</LinearLayout>
