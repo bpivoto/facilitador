@@ -93,6 +93,11 @@ public class BackgroundTask extends AsyncTask<String,Void,String>{
                 showDialog("Falha de login",message,code);
             }
         } catch (JSONException e) {
+
+            e.printStackTrace();
+        }
+        catch(NullPointerException e){
+            showDialog("Falha de login","Falha na comunicação. Verifique se há conexão","login_false");
             e.printStackTrace();
         }
     }
@@ -225,6 +230,8 @@ public class BackgroundTask extends AsyncTask<String,Void,String>{
                 e.printStackTrace();
             }
         }
+
+        Log.i("Facilitador","return null");
         return null;
     }
 }

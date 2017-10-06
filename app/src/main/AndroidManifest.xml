@@ -20,7 +20,6 @@
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".ReaderActivity"></activity>
     </application>
 
 </manifest>

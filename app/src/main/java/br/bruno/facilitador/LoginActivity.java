@@ -20,6 +20,20 @@ public class LoginActivity extends AppCompatActivity {
     AlertDialog.Builder builder;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        userSession = new UserSession(this);
+        if(userSession.isLogged()){
+            Intent intent = new Intent(this,HomeActivity.class);
+            intent.putExtra("message",userSession.getMessage());
+            this.startActivity(intent);
+            Log.i("Facilitador","isLogged! - LoginActivity onResume");
+        }else{
+            Log.i("Facilitador","notLogged! - LoginActivity onResume");
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -28,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(this,HomeActivity.class);
             intent.putExtra("message",userSession.getMessage());
             this.startActivity(intent);
+            this.finish();
             Log.i("Facilitador","isLogged! - LoginActivity");
         }else{
             Log.i("Facilitador","notLogged! - LoginActivity");

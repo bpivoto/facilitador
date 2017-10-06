@@ -1,14 +1,17 @@
 package br.bruno.facilitador;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 public class HomeActivity extends AppCompatActivity {
     TextView textView;
@@ -47,5 +50,27 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         textView.setText(message);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i("Facilitador","onActivityResult");
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
+        if (result != null){
+            Log.i("Facilitador","SCAN result not null");
+            if(result.getContents()==null){
+                Log.i("Facilitador","SCAN cancelled");
+                Toast.makeText(this,"Vc cancelou o scan",Toast.LENGTH_LONG).show();
+            }else{
+                Toast.makeText(this,result.getContents(),Toast.LENGTH_LONG).show();
+                Log.i("Facilitador","SCAN ok");
+            }
+        }else{
+            Log.i("Facilitador","SCAN result null");
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+
+
     }
 }
