@@ -25,6 +25,7 @@ public class UserSession {
         this.email=email;
         this.name=name;
         SharedPreferences.Editor editor = sharedPreferences.edit();
+
         editor.putBoolean("logged",true);
         editor.putString("name",name);
         editor.putString("email",email);

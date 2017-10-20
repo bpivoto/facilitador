@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    tools:context="br.bruno.facilitador.HomeActivity">
+    tools:context="br.bruno.facilitador.HomeActivity"
+    >
 
 
     <TextView
@@ -34,20 +35,42 @@
         />
 
 
-    <TextView
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/campo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="QRCODE SCANNER"
-        android:textSize="25dp"
-        android:layout_centerHorizontal="true"
-        />
+        android:gravity="right"
+        android:inputType="numberDecimal"
+        android:hint="code" />
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="SCAN"
-        android:id="@+id/scan_btn"
-        />
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/scan_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="SCAN" />
+        <Button
+            android:id="@+id/manually_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Manualmente" />
+
+
+    </LinearLayout>
+
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/list_view">
+
+
+    </ListView>
 </LinearLayout>
