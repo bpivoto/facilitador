@@ -9,6 +9,8 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -48,6 +50,7 @@ public class HomeActivity extends AppCompatActivity {
     String searchproduct_url = "http://bpivoto.000webhostapp.com/search_product.php";
     ProgressDialog progressDialog;
     Order order;
+    ArrayList<Order_Product> products;
     ArrayAdapter<Order_Product> adapter;
     DatabaseHelper db;
     BGtask backgroundtask;
@@ -88,6 +91,7 @@ public class HomeActivity extends AppCompatActivity {
             String method = params[0];
 
             try {
+                Log.i("Facilitador","search_product");
                 URL url = new URL(searchproduct_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
@@ -147,7 +151,7 @@ public class HomeActivity extends AppCompatActivity {
                 String code = JO.getString("code");
                 Log.i("Facilitador",json);
                 if(code.equals("product_found")){
-
+                    Log.i("Facilitador","product found");
 
                     Order_Product orderProduct = new Order_Product();
                     orderProduct.setProduct_code(JO.getInt("product_code"));
@@ -157,19 +161,27 @@ public class HomeActivity extends AppCompatActivity {
 
                     int procura=checkIfExist(orderProduct.getProduct_code());
                     if(procura==-1){
-                        db.insertProduct(orderProduct.getProduct_code(), orderProduct.getProduct_name(), orderProduct.getProduct_description(), orderProduct.getPrice());
+                        db.insertProduct(order.getOrderid(), orderProduct.getProduct_code(), orderProduct.getProduct_name(), orderProduct.getProduct_description(), orderProduct.getPrice());
                         Log.i("Facilitador","Não existe ainda");
                     }else{
-                      //  Log.i("Facilitador","Já existe em "+procura + "= "+ orderProducts.get(procura).getProduct_code()+ ", "+ orderProducts.get(procura).getProduct_name());
+                        db.insertProduct(order.getOrderid(), orderProduct.getProduct_code(), orderProduct.getProduct_name(), orderProduct.getProduct_description(), orderProduct.getPrice());
                     }
                     //orderProducts.add(0, orderProduct);
 
 
-                    adapter.notifyDataSetChanged();
+                    //adapter.notifyDataSetChanged();
+                    order.setOrder_product(null);
+                    order = db.getOrder(userSession.getEmail());
+                    products = order.getOrder_product();
                     Log.i("Facilitador","product_found");
+                    Log.i("Facilitador","product_found - total: R$ "+order.getTotal() );
+
+                    adapter.notifyDataSetChanged();
 
                 }else{
+                    Log.i("Facilitador","product not found?");
                     if(code.equals("product_notfound")){
+                        Log.i("Facilitador","product not found!!");
                         Toast.makeText(getApplicationContext(),JO.getString("message"),Toast.LENGTH_LONG).show();
                     }
                 }
@@ -185,7 +197,17 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        Log.i("Facilitador","menuoption");
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu); // set your file name
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
         db = new DatabaseHelper(this);
         Log.i("Facilitador","onCreate HomeActivity");
         userSession = new UserSession(this);
@@ -205,17 +227,16 @@ public class HomeActivity extends AppCompatActivity {
         if(order == null)
          Log.i("Facilitador","onCreate HomeActivity - ORDER == NULL ");
         else{
-            Log.i("Facilitador,",order.getEmail()+" - "+order.getOrderid());
+            Log.i("Facilitador","HomeScreen: "+order.getEmail()+" - "+order.getOrderid());
         }
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+
         listView = (ListView) findViewById(R.id.list_view);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String item = listView.getItemAtPosition(i).toString();
                 //Toast.makeText(getApplicationContext(),"Item "+i+" - "+item,Toast.LENGTH_LONG).show();
-
+                Log.i("Facilitador","Apagou item da lista: "+item);
             //    if(db.delete(orderProducts.get(i).getProduct_code())){
                //     orderProducts.remove(i);
               //      adapter.notifyDataSetChanged();
@@ -223,9 +244,10 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
+        products = order.getOrder_product();
 
-       // adapter = new ArrayAdapter<Order_Product>(this,android.R.layout.simple_list_item_1, order.getOrder_product());
-       // listView.setAdapter(adapter);
+        adapter = new ArrayAdapter<Order_Product>(this,android.R.layout.simple_list_item_1, products);
+        listView.setAdapter(adapter);
 
 
 
@@ -301,7 +323,12 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public int checkIfExist(int code_searched){
-
+        if(order==null){
+            Log.i("Facilitador","ORDER null");
+        }
+        if(order.getOrder_product()==null){
+            Log.i("Facilitador","getOrder_product null");
+        }
         for (int i = 0; i< order.getOrder_product().size(); i++){
             if (code_searched== order.getOrder_product().get(i).getProduct_code())
                 return i;

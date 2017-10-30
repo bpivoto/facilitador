@@ -8,18 +8,18 @@ import java.util.ArrayList;
  */
 
 public class Order {
-    private int orderid;
+    private String orderid;
     private String email;
     private String order_date;
     private double total;
     private int status;
     private ArrayList<Order_Product> order_product;
 
-    public int getOrderid() {
+    public String getOrderid() {
         return orderid;
     }
 
-    public void setOrderid(int orderid) {
+    public void setOrderid(String orderid) {
         this.orderid = orderid;
     }
 

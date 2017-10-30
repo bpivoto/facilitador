@@ -7,37 +7,15 @@ package br.bruno.facilitador.VO;
 public class Order_Product {
     private int product_code;
     private String product_name;
-    private String product_description;
-    private double price;
-    private int qty;
-
-    public int getQty() {
-        return qty;
-    }
-
-    public void setQty(int qty) {
-        this.qty = qty;
-    }
-
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    private String email;
-
-    public Order_Product(){
-
-    }
 
     @Override
     public String toString() {
-        return product_name + " - R$ "+price;
+        return product_name+" - "+"R$ "+price+" - "+qty+" unidades";
     }
+
+    private String product_description;
+    private double price;
+    private int qty;
 
     public int getProduct_code() {
         return product_code;
@@ -70,6 +48,16 @@ public class Order_Product {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    public int getQty() {
+        return qty;
+    }
+
+    public void setQty(int qty) {
+        this.qty = qty;
+    }
+
+
 
 
 }
